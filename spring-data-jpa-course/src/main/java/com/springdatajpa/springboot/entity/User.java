@@ -8,6 +8,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -31,7 +33,12 @@ public class User {
 	private String email;
 	private String password;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+	@JoinTable(
+		    name = "users_roles",
+		    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+		    inverseJoinColumns =  @JoinColumn(name = "roles_id", referencedColumnName = "id")
+		)
     private Set<Role> roles;
     
     public User() {
