@@ -41,8 +41,7 @@ public class Order {
 	// join column for one to one unidirectional mapping
 	private Address billingAddress;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "order_id", referencedColumnName = "id")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
 	private Set<OrderItem> orderItem = new HashSet<OrderItem>();
 
 	

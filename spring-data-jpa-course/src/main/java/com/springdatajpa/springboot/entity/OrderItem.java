@@ -2,12 +2,16 @@ package com.springdatajpa.springboot.entity;
 
 import java.math.BigDecimal;
 
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -25,6 +29,10 @@ public class OrderItem {
 	@OneToOne(cascade =  CascadeType.ALL)
 	@JoinColumn(name = "product_id", referencedColumnName = "id")
 	private Product product;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "order_id", referencedColumnName = "id")
+	public Order order;
 	
 	public OrderItem() {
 		// TODO Auto-generated constructor stub
