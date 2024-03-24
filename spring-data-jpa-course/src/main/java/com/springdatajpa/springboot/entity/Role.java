@@ -1,5 +1,6 @@
 package com.springdatajpa.springboot.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -21,17 +22,17 @@ public class Role {
 	private String name;
 	
 	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER, mappedBy = "roles")
-	private Set<User> user;
+	private Set<User> users = new HashSet<>();
 		
 	public Role() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Role(Long id, String name, Set<User> user) {
+	public Role(Long id, String name, Set<User> users) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.user = user;
+		this.users = users;
 	}
 
 	public Long getId() {
@@ -50,19 +51,17 @@ public class Role {
 		this.name = name;
 	}
 
-	public Set<User> getUser() {
-		return user;
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setUser(Set<User> user) {
-		this.user = user;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 
 	@Override
 	public String toString() {
-		return "Role [id=" + id + ", name=" + name + ", user=" + user + "]";
+		return "Role [id=" + id + ", name=" + name + ", users=" + users + "]";
 	}
-	
-	
 
 }
